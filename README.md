@@ -27,7 +27,7 @@ enable this. I just want to view and search stuff, and it should be fast.
 image could (should) probably be made a lot smaller (currently ~231MB). It outputs static html 
 files, so worst case you can run this image and delete it afterwards. Except for the `static_files` 
 folder, this leaves nothing else on your system. Docker layers make sure that 
-when changing `doc-docs/*` files, just those will be rebuilt, making only the first build slow.
+when changing `config/*` files, just those will be rebuilt, making only the first build slow.
 
 Clone this repository, build pandoc and run php and nginx (ie, enable search):
 
@@ -39,6 +39,6 @@ cd doc-docs
 
 This will get you up and running and launch doc-docs [docs](docs/BUILDING.html) :whale:
 
-Edit the scripts and files (`doc-docs.sh`, `php/search.php`, `doc-docs/*`) to suit your needs. 
+Edit the scripts and files (`doc-docs.sh`, `config/*`) to suit your needs. 
 They are small, it should be simple to modify them to make your docs look like you want them to.
 
