@@ -2,17 +2,22 @@
 create_html_file() {
     tmpfile=`mktemp`
     tmpcontent=`mktemp`
-
+    tmpfile_md=`mktemp`
     html_file="${1%.md}.html"
     dirname=`dirname $1`
 
     if [ "$1" = "$tmpdir/index.md" ]; then
         relative_path='.'
+        cat $1 > $tmpfile_md
     else
         relative_path=`realpath --relative-to="$dirname" "${PWD}"`
+        cat ${PAGE_HEAD} > $tmpfile_md
+        cat $1 >> $tmpfile_md
+        cat ${PAGE_TAIL} >> $tmpfile_md
     fi
 
-    pandoc -f gfm $1 -o $tmpcontent
+    pandoc -f gfm $tmpfile_md -o $tmpcontent
+    rm $tmpfile_md
 
     cat <<EOF > $tmpfile
 <meta name="viewport" content="width=device-width, initial-scale=1">

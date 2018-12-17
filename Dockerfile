@@ -38,10 +38,14 @@ RUN apk add --no-cache tree
 ENV STYLESHEET /var/style.css
 ENV INDEX_HEAD /var/index.head
 ENV INDEX_TAIL /var/index.tail
+ENV PAGE_HEAD /var/page.head
+ENV PAGE_TAIL /var/page.tail
 
 COPY config/style.css /var/style.css
 COPY config/index.head /var/index.head
 COPY config/index.tail /var/index.tail
+COPY config/page.head /var/page.head
+COPY config/page.tail /var/page.tail
 
 ENV OUT_DIR static_files
 WORKDIR /data
