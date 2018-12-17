@@ -39,9 +39,9 @@ ENV STYLESHEET /var/style.css
 ENV INDEX_HEAD /var/index.head
 ENV INDEX_TAIL /var/index.tail
 
-COPY doc-docs/style.css /var/style.css
-COPY doc-docs/index.head /var/index.head
-COPY doc-docs/index.tail /var/index.tail
+COPY config/style.css /var/style.css
+COPY config/index.head /var/index.head
+COPY config/index.tail /var/index.tail
 
 ENV OUT_DIR static_files
 WORKDIR /data

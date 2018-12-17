@@ -35,25 +35,25 @@ cp ${STYLESHEET} "${OUT_DIR}/style.css"
 echo "Created '${OUT_DIR}' and copied '${STYLESHEET}'"
 
 tmpdir=`mktemp -d`
-tmpindex_md="$tmpdir/index.md"
-tmpindex_links=`mktemp`
+tmpindex="$tmpdir/index.md"
+tmplinks=`mktemp`
 
 time find . -type f -iname "*.md" -print0 | while IFS= read -r -d $'\0' file; do
     source_file=`echo "$file" | cut -d'/' -f2-`
 
     create_html_file $source_file ${OUT_DIR}
 
-    cat <<EOF >> $tmpindex_links
+    cat <<EOF >> $tmplinks
 [${source_file%.md}.html](${source_file%.md}.html)  
 EOF
 done
 
-cat ${INDEX_HEAD} > $tmpindex_md
-cat $tmpindex_links | sort >> $tmpindex_md && rm $tmpindex_links
-cat ${INDEX_TAIL} >> $tmpindex_md
+cat ${INDEX_HEAD} > $tmpindex
+cat $tmplinks | sort >> $tmpindex && rm $tmplinks
+cat ${INDEX_TAIL} >> $tmpindex
 
-create_html_file $tmpindex_md ${OUT_DIR}
-rm $tmpindex_md
+create_html_file $tmpindex ${OUT_DIR}
+rm $tmpindex
 
 mv "${OUT_DIR}$tmpdir/index.html" "${OUT_DIR}/index.html"
 echo "Moved '${OUT_DIR}$tmpdir/index.html' to '${OUT_DIR}/index.html'"

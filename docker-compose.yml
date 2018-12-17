@@ -3,13 +3,13 @@ web:
     ports:
         - "8080:80"
     volumes:
-        - ./php:/code:ro
-        - ./nginx:/etc/nginx/conf.d:ro
+        - ./config/php:/code:ro
+        - ./config/nginx:/etc/nginx/conf.d:ro
         - ./static_files:/data:ro
     links:
         - php
 php:
     image: php:7-fpm
     volumes:
-        - ./php:/code:ro
+        - ./config/php:/code:ro
         - ./static_files:/data:ro
