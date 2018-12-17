@@ -34,7 +34,7 @@ Clone this repository, build pandoc and run php and nginx (ie, enable search):
 ```
 git clone https://github.com/jbauers/doc-docs.git
 cd doc-docs
-./run.sh
+IN_DIR="/path/to/files" ./run.sh
 ```
 
 This will get you up and running and launch doc-docs [docs](docs/BUILDING.html) :whale:
