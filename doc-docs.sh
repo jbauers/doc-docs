@@ -42,25 +42,39 @@ echo "Created '${OUT_DIR}' and copied '${STYLESHEET}'"
 tmpdir=`mktemp -d`
 tmpindex="$tmpdir/index.md"
 tmplinks=`mktemp`
+tmptree=`mktemp`
+
+cat <<EOF > $tmptree
+<pre><code>
+EOF
+tree . -f --prune -P '*.md' >> $tmptree
 
 time find . -type f -iname "*.md" -print0 | while IFS= read -r -d $'\0' file; do
     source_file=`echo "$file" | cut -d'/' -f2-`
+    html_filename="${source_file%.md}.html"
+    basename=`basename $html_filename`
 
     create_html_file $source_file ${OUT_DIR}
 
-    # Replace the block between EOF below with the following line to sort alphabetically.
-    # You also don't need 'modified_date' if you do so:
-    # [${source_file%.md}.html](${source_file%.md}.html)
+    echo "$html_filename $basename"
+    sed -i "s~$source_file~<a href='$html_filename'>$basename</a>~g" $tmptree
     modified_date=`stat -c %y $source_file | awk -F ' ' '{print $1}'`
     cat <<EOF >> $tmplinks
-$modified_date<DEL>[${source_file%.md}.html](${source_file%.md}.html) - $modified_date<br>
+$modified_date<DEL>[$html_filename]($html_filename) - $modified_date  
 EOF
 done
 
-cat ${INDEX_HEAD} > $tmpindex
+cat <<EOF >> $tmptree
+</code></pre>
+<hr />
 
-# Replace the following block with the following command to sort alphabetically:
-# cat $tmplinks | sort >> $tmpindex && rm $tmplinks
+EOF
+
+sed -i "s~\./~~g" $tmptree
+
+cat ${INDEX_HEAD} > $tmpindex
+cat $tmptree >> $tmpindex && rm $tmptree
+
 cat $tmplinks |
 sort -r -b -k 1.1,1.4 -k 1.6,1.7 -k 1.9,1.10 |
 awk -F '<DEL>' '{print $2}' \
