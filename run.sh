@@ -12,6 +12,7 @@ echo "Generating new HTML site in '$OUT_DIR'"
 docker build -t doc-docs .
 docker run -v "$IN_DIR:/data:ro" -v "$IN_DIR/$OUT_DIR:/data/$OUT_DIR:rw" doc-docs
 mv "$IN_DIR/$OUT_DIR" .
+cp -r "img" "$OUT_DIR/img"
 
 echo "Running nginx and php: http://localhost:8080"
 docker-compose up
