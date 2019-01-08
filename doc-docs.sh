@@ -6,7 +6,7 @@ create_html_file() {
     html_file="${1%.md}.html"
     dirname=`dirname $1`
 
-    if [ "$1" = "$tmpdir/index.md" ]; then
+    if [ "$1" = "$tmpindex" ]; then
         relative_path='.'
         cat $1 > $tmpfile_md
     else
@@ -43,43 +43,53 @@ tmpdir=`mktemp -d`
 tmpindex="$tmpdir/index.md"
 tmplinks=`mktemp`
 tmptree=`mktemp`
+tmptree_dirs=`mktemp`
 
+echo "Creating tree..."
 cat <<EOF > $tmptree
 <pre><code>
 EOF
-tree . -f --prune -P '*.md' >> $tmptree
+time tree . -f --prune -P '*.md' >> $tmptree
 
 time find . -type f -iname "*.md" -print0 | while IFS= read -r -d $'\0' file; do
     source_file=`echo "$file" | cut -d'/' -f2-`
     html_filename="${source_file%.md}.html"
     basename=`basename $html_filename`
+    modified_date=`stat -c %y $source_file | awk -F ' ' '{print $1}'`
 
     create_html_file $source_file ${OUT_DIR}
 
-    echo "$html_filename $basename"
     sed -i "s~$source_file~<a href='$html_filename'>$basename</a>~g" $tmptree
-    modified_date=`stat -c %y $source_file | awk -F ' ' '{print $1}'`
     cat <<EOF >> $tmplinks
-$modified_date<DEL>[$html_filename]($html_filename) - $modified_date  
+$modified_date<DEL>$modified_date - [$html_filename]($html_filename)  
 EOF
 done
+sed -i "s~\./~~g" $tmptree
+
+# Don't process links and the following 'cat' code later. Could also delete each entry indivdually while processing above.
+sed '\~\.html</a>$~d' $tmptree > $tmptree_dirs
 
 cat <<EOF >> $tmptree
 </code></pre>
-<hr />
+<hr/>
 
 EOF
 
-sed -i "s~\./~~g" $tmptree
+echo "Prettifying tree..."
+# Start reading at line 3. Each $dirpath occurs once in our tree command output.
+time sed -n '3,$p' $tmptree_dirs | while IFS="" read -r line || [ -n "$line" ]; do
+    dirpath=`echo "$line" | awk -F '── ' '{print $2}'`
+    basename=`basename $dirpath`
+    sed -i "s~── $dirpath$~── $basename~1" $tmptree
+done
+rm $tmptree_dirs
 
+echo "Creating index..."
 cat ${INDEX_HEAD} > $tmpindex
 cat $tmptree >> $tmpindex && rm $tmptree
-
 cat $tmplinks |
 sort -r -b -k 1.1,1.4 -k 1.6,1.7 -k 1.9,1.10 |
-awk -F '<DEL>' '{print $2}' \
->> $tmpindex && rm $tmplinks
-
+awk -F '<DEL>' '{print $2}' >> $tmpindex && rm $tmplinks
 cat ${INDEX_TAIL} >> $tmpindex
 
 create_html_file $tmpindex ${OUT_DIR}
@@ -91,5 +101,4 @@ echo "Moved '${OUT_DIR}$tmpdir/index.html' to '${OUT_DIR}/index.html'"
 rm -rf "${OUT_DIR}/tmp"
 echo "Removed '${OUT_DIR}/tmp'"
 
-echo "Done:"
-tree ${OUT_DIR}
+echo "Done"
