@@ -5,8 +5,11 @@ fi
 OUT_DIR="static_files"
 docker-compose down
 
-docker-compose -f compose.modules build
-docker-compose -f compose.modules up
+# Uncomment the next two lines to generate documentation from source code.
+# See 'docs/modules.md' for more information.
+
+#docker-compose -f compose.modules build
+#docker-compose -f compose.modules up
 
 echo "Removing '$OUT_DIR'"
 rm -rf $OUT_DIR
