@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  ansible:
+    build: ./modules/ansible
+    volumes:
+      - /ansible/files:/ansible:rw
+
+  terraform:
+    build: ./modules/terraform
+    volumes:
+      - /terraform/files:/terraform:rw

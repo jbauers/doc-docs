@@ -1,0 +1,3 @@
+[submodule "modules/ansible"]
+	path = modules/ansible
+	url = https://github.com/jbauers/ansible-docgen.git
