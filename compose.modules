@@ -4,9 +4,14 @@ services:
   ansible:
     build: ./modules/ansible
     volumes:
-      - /ansible/files:/ansible:rw
+      - /path/to/ansible/files:/ansible:rw
 
   terraform:
     build: ./modules/terraform
     volumes:
-      - /terraform/files:/terraform:rw
+      - /path/to/terraform/files:/terraform:rw
+
+  puppet:
+    build: ./modules/puppet
+    volumes:
+      - /path/to/puppet/files:/puppet:rw
