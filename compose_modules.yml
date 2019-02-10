@@ -2,16 +2,29 @@ version: '3.7'
 
 services:
   ansible:
-    build: ./modules/ansible
+    build:
+      context: ./modules
+      dockerfile: Dockerfile.ansible
     volumes:
-      - /path/to/ansible/files:/ansible:rw
+      - ${ANSIBLE}:/ansible:rw
 
-  terraform:
-    build: ./modules/terraform
+  golang:
+    build:
+      context: ./modules
+      dockerfile: Dockerfile.golang
     volumes:
-      - /path/to/terraform/files:/terraform:rw
+      - ${GOLANG}:/golang:rw
 
   puppet:
-    build: ./modules/puppet
+    build:
+      context: ./modules
+      dockerfile: Dockerfile.puppet
     volumes:
-      - /path/to/puppet/files:/puppet:rw
+      - ${PUPPET}:/puppet:rw
+
+  terraform:
+    build:
+      context: ./modules
+      dockerfile: Dockerfile.terraform
+    volumes:
+      - ${TERRAFORM}:/terraform:rw

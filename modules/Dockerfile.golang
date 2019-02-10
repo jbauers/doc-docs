@@ -1,0 +1,18 @@
+FROM golang:alpine
+
+RUN apk add --no-cache \
+  gcc \
+  git \
+  libc-dev
+
+COPY golang/. /build
+
+RUN cd /build \
+  && go build \
+  && mv godoc2md /usr/bin/godoc2md \
+  && chmod a+x /usr/bin/godoc2md
+
+RUN mkdir /golang
+WORKDIR /golang
+
+CMD ["sh","-c","godoc2md . > reference.md"]

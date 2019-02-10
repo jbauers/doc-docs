@@ -1,3 +1,6 @@
 [submodule "modules/ansible"]
 	path = modules/ansible
 	url = https://github.com/jbauers/ansible-docgen.git
+[submodule "modules/golang"]
+	path = modules/golang
+	url = ssh://git@github.com/davecheney/godoc2md.git
