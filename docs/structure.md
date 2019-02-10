@@ -16,11 +16,8 @@ optimisations to be made there :smile:
 
 ## "Pull" example
 
-Add all projects you'd like to generate documentation of as `.gitmodules`, and optionally
-adjust `compose_modules.yml` if you'd also like to generate markdown from source code (see
-[modules](modules.md)). Running `run.sh` on the current directory will then generate all
-documentation as static files. Rsync them to a basic Nginx machine (or keep them locally to
-yourself).
+Add all projects you'd like to generate documentation of as `.gitmodules`, under one umbrella dir.
+Adjust `IN_DIR=/path/to/umbrella` and modules in `.env` and run `run.sh`.
 
 ## "Push" example
 

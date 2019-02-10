@@ -1,5 +1,6 @@
-# Improvement ideas
+# Improvements
 
 - [ ] Add syntax highlighting CSS
-- [ ] Make the image smaller
+- [ ] Support more than one `IN_DIR` per module
+- [ ] Make the pandoc image smaller
 - [ ] Make task lists work :smile:
