@@ -47,6 +47,9 @@ COPY config/index.tail /var/index.tail
 COPY config/page.head /var/page.head
 COPY config/page.tail /var/page.tail
 
+ENV UID 1000
+ENV GID 1000
+
 ENV OUT_DIR static_files
 WORKDIR /data
 

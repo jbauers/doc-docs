@@ -101,4 +101,8 @@ echo "Moved '${OUT_DIR}$tmpdir/index.html' to '${OUT_DIR}/index.html'"
 rm -rf "${OUT_DIR}/tmp"
 echo "Removed '${OUT_DIR}/tmp'"
 
+echo "Fixing permissions: ${UID}:${GID} 0755 on ${OUT_DIR}"
+chown -R ${UID}:${GID} ${OUT_DIR}
+chmod -R 0755 ${OUT_DIR}
+
 echo "Done"

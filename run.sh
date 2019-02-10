@@ -17,6 +17,8 @@ docker build -t doc-docs .
 docker run -v "${IN_DIR}:/data:ro" \
            -v "${IN_DIR}/${OUT_DIR}:/data/${OUT_DIR}:rw" \
            -e "OUT_DIR=${OUT_DIR}" \
+           -e "UID=$(id -u)" \
+           -e "GID=$(id -g)" \
            doc-docs
 
 mv "$IN_DIR/$OUT_DIR" .
