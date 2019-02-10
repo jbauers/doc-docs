@@ -2,7 +2,7 @@
 
 You can generate markdown files from source code (to then be converted to HTML)
 by uncommenting the relevant lines and specifying the path to your files in
-`compose.modules`.
+`compose_modules.yml`.
 
 This will mount those directories `rw` and create `*.md` files in them, depending
 on the module. Please check the Dockerfiles for each module in `modules/<module>`

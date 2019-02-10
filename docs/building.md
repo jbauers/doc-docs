@@ -32,5 +32,6 @@ You can then navigate to your `*.html` files in the browser, or launch nginx to 
 
 `docker run -v $PWD/static_files:/usr/share/nginx/html:ro -p 8080:80 nginx`
 
-To enable search, you also need php and the included code. Have a look at the included `docker-compose.yml`, `run.sh`,
-`config/php/search.php` and `config/nginx/sites.conf`. All code is very basic, so you can adjust them to your needs.
+To enable search, you also need PHP and the included code. Have a look at the included
+`compose_infra.yml`, `run.sh`, `config/php/search.php` and `config/nginx/sites.conf`. All code is
+very basic, so you can adjust them to your needs.
