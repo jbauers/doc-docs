@@ -1,1 +1,4 @@
 static_files
+examples/*/*.md
+examples/*/*/*.md
+examples/puppet/.yardoc

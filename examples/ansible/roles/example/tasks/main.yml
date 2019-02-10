@@ -1,0 +1,8 @@
+---
+- name: Ensure container is running
+  docker_container:
+    name: "{{ item }}"
+    image: "{{ item }}:latest"
+    state: started
+  with_items:
+    - "container"
