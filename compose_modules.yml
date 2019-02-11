@@ -8,6 +8,13 @@ services:
     volumes:
       - ${ANSIBLE}:/ansible:rw
 
+  cxx:
+    build:
+      context: ./modules
+      dockerfile: Dockerfile.moxygen
+    volumes:
+      - ${CXX}:/cxx:rw
+
   golang:
     build:
       context: ./modules

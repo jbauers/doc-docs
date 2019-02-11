@@ -1,0 +1,14 @@
+FROM alpine:latest
+
+RUN apk add --no-cache \
+  doxygen \
+  nodejs-current-npm
+
+RUN npm install moxygen -g
+
+COPY ./moxygen/Doxyfile /var/Doxyfile
+
+RUN mkdir /cxx
+WORKDIR /cxx
+
+CMD ["sh","-c","doxygen /var/Doxyfile && moxygen --anchors --output reference.md xml && rm -rf xml"]
