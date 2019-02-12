@@ -1,11 +1,15 @@
-### 📖 Index | 🔎 [Search](/search.php)
+### 📖 Index | 🔎 [Search](/search.php) | ⚠️  [Status](/status.php)
 
 ---
 
-Below is an index of alphabetically ordered *.md files found in this dir 
-and subdirs. You can view the [stylesheet here](./style.css).
+## :whale: doc-docs
 
-To search, visit [search](search.php).
+Success! 🎉
+
+Basic [search](search.php) is available.  
+You can also view a simple [status](status.php) page.
+
+Check the generated directory tree below :point_down:
 
 ---
 

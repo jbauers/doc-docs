@@ -21,7 +21,7 @@ function test_input($data) {
   return $data;
 }?>
 
-<h3>📖 <a href='index.html'>Index</a> | 🔎 Search</h3>
+<h3>📖 <a href='index.html'>Index</a> | 🔎 Search | ⚠️ <a href='status.php'>Status</a></h3>
 <hr />
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <input type="submit" name="submit" value="Search">
